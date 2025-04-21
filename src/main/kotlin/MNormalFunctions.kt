@@ -7,8 +7,24 @@ fun main() {
     println("Reverse the input")
     reverseString0(input)       //This print out from the function
 
-    val reversedInPut = reverseString(input)        //This function return the value
-    println(reversedInPut)
+    val reversed = reverseString(input)        //This function return the value
+    println(reversed)
+
+    println(reverseString(reversed))
+
+    println("=============Palindrome=============")
+    if (input == reversed) {
+        println("It's a Palindrome!")
+    } else {
+        println("It's not palindrome")
+    }
+
+    println("=============Default parameter=============")
+    val defaultReversed = reverseString()
+    println(defaultReversed)
+
+    println("=============Named parameter=============")
+    val reversed1 = reverseString(stringToReverse = input)      //named parameter, if there are multiple parameters
 }
 
 fun reverseString0(stringToReverse: String) {
@@ -20,7 +36,9 @@ fun reverseString0(stringToReverse: String) {
     println(reversedString)
 }
 
-fun reverseString(stringToReverse: String): String {
+fun reverseString(
+    stringToReverse: String = "Hello world"
+): String {
     return buildString {
         for (i in stringToReverse.lastIndex downTo 0) {
             append(stringToReverse[i])
