@@ -8,11 +8,15 @@ fun main() {
     val circle4 = Circle4(15f)
     val sumOfAreas = sumAreas(rect4, circle4)
     println(sumOfAreas)
+
+    printShapes(rect4, circle4)
 }
 
 interface Shape4 {
     val area: Float
     val circumference: Float
+
+    //fun helloWorld(counter: Int)        //if we write this, we need to implement this method
 }
 
 data class Rectangle4(
@@ -38,8 +42,25 @@ data class Circle4(val radius: Float) : Shape4 {
     val diameter = 2 * radius
 }
 
-fun sumAreas(vararg shape4s: Shape4): Double {
-    return shape4s.sumOf { currentShape ->
+fun sumAreas(vararg shapes: Shape4): Double {
+    return shapes.sumOf { currentShape ->
         currentShape.area.toDouble()
+    }
+}
+
+fun printShapes(vararg shapes: Shape4) {
+    for (shape in shapes) {
+        //if (shape is Circle4) { }     This way, also works
+        when (shape) {       //type check with when expression
+            is Circle4 -> println("It's circle")
+            is Rectangle4 -> println("It's Rectangle")
+        }
+
+        val output = when (shape) {
+            is Circle4 -> "It's circle"
+            is Rectangle4 -> "It's rectangle"
+            else -> null        //We must have this else branch, otherwise it's giving an error. If we don't need else branch, then we have to use sealed class
+        }
+        println(output)
     }
 }
